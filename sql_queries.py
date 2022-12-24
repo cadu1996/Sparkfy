@@ -35,30 +35,30 @@ CREATE TABLE IF NOT EXISTS users (
 SONG_TABLE_CREATE = """
 CREATE TABLE IF NOT EXISTS songs (
                      song_id VARCHAR PRIMARY KEY,
-                     title VARCHAR,
+                     title VARCHAR NOT NULL,
                      artist_id VARCHAR,
                      year int,
-                     duration float )
+                     duration float NOT NULL )
 """
 
 ARTIST_TABLE_CREATE = """
 CREATE TABLE IF NOT EXISTS artists (
                        artist_id VARCHAR PRIMARY KEY,
-                       artist_name VARCHAR,
-                       artist_location VARCHAR,
-                       artist_latitude float,
-                       artist_longitude float )
+                       name VARCHAR NOT NULL,
+                       location VARCHAR,
+                       latitude float,
+                       longitude float )
 """
 
 TIME_TABLE_CREATE = """
 CREATE TABLE IF NOT EXISTS time (
                     start_time timestamp,
-                    year int,
-                    month int,
-                    week int,
-                    weekday int
-                    day int
                     hour int,
+                    day int,
+                    week int,
+                    month int,
+                    year int,
+                    weekday int
                     )
 """
 
@@ -82,7 +82,7 @@ ON CONFLICT (song_id) DO NOTHING
 """
 
 ARTIST_TABLE_INSERT = """
-INSERT INTO artists (artist_id, artist_name, artist_location, artist_latitude, artist_longitude)
+INSERT INTO artists (artist_id, name, location, latitude, longitude)
 VALUES (%s, %s, %s, %s, %s)
 ON CONFLICT (artist_id) DO NOTHING
 """
@@ -94,7 +94,7 @@ INSERT INTO time (start_time, hour, day, week, month, year, weekday) VALUES (%s,
 # FIND SONGS
 
 SONG_SELECT = """
-SELECT s.song_id, a.artist_id FROM songs s JOIN artists a ON s.artist_id = a.artist_id WHERE s.title = %s AND a.artist_name = %s
+SELECT s.song_id, a.artist_id FROM songs s JOIN artists a ON s.artist_id = a.artist_id WHERE s.title = %s AND a.name = %s
 """
 
 # QUERY LISTS
