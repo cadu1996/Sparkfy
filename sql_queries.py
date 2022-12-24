@@ -85,8 +85,7 @@ ON CONFLICT (artist_id) DO NOTHING
 """
 
 
-time_table_
-insert = """
+time_table_insert = """
 INSERT INTO time (start_time, hour, day, week, month, year, weekday) VALUES (%s, %s, %s, %s, %s, %s, %s)
 """
 
