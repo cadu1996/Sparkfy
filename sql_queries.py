@@ -1,14 +1,14 @@
 # DROP TABLES
 
-songplay_table_drop = "DROP TABLE IF EXISTS songplays"
-user_table_drop = "DROP TABLE IF EXISTS users"
-song_table_drop = "DROP TABLE IF EXISTS songs"
-artist_table_drop = "DROP TABLE IF EXISTS artists"
-time_table_drop = "DROP TABLE IF EXISTS time"
+SONGPLAY_TABLE_DROP = "DROP TABLE IF EXISTS songplays"
+USER_TABLE_DROP = "DROP TABLE IF EXISTS users"
+SONG_TABLE_DROP = "DROP TABLE IF EXISTS songs"
+ARTIST_TABLE_DROP = "DROP TABLE IF EXISTS artists"
+TIME_TABLE_DROP = "DROP TABLE IF EXISTS time"
 
 # CREATE TABLES
 
-songplay_table_create = """
+SONGPLAY_TABLE_CREATE = """
 CREATE TABLE IF NOT EXISTS songplays (
     songplay_id SERIAL PRIMARY KEY,
     start_time TIMESTAMP NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS songplays (
 )
 """
 
-user_table_create = """
+USER_TABLE_CREATE = """
 CREATE TABLE IF NOT EXISTS users (
     user_id int PRIMARY KEY,
     first_name varchar,
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS users (
     )
 """
 
-song_table_create = """
+SONG_TABLE_CREATE = """
 CREATE TABLE IF NOT EXISTS songs (
                      song_id VARCHAR PRIMARY KEY,
                      title VARCHAR,
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS songs (
                      duration float )
 """
 
-artist_table_create = """
+ARTIST_TABLE_CREATE = """
 CREATE TABLE IF NOT EXISTS artists (
                        artist_id VARCHAR PRIMARY KEY,
                        artist_name VARCHAR,
@@ -50,64 +50,67 @@ CREATE TABLE IF NOT EXISTS artists (
                        artist_longitude float )
 """
 
-time_table_create = """
+TIME_TABLE_CREATE = """
 CREATE TABLE IF NOT EXISTS time (
                     start_time timestamp,
-                    hour int,
-                    day int,
-                    week int,
-                    month int,
                     year int,
-                    weekday int )
+                    month int,
+                    week int,
+                    weekday int
+                    day int
+                    hour int,
+                    )
 """
 
 # INSERT RECORDS
 
-songplay_table_insert = """
+SONGPLAY_TABLE_INSERT = """
 INSERT INTO songplays (start_time, user_id, level, song_id, artist_id, session_id, location, user_agent)
 VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+ON CONFLICT (songplay_id) DO NOTHING
 """
 
-user_table_insert = """
+USER_TABLE_INSERT = """
 INSERT INTO users (user_id, first_name, last_name, gender, level)
 VALUES (%s, %s, %s, %s, %s)
+ON CONFLICT (user_id) DO UPDATE SET level = EXCLUDED.level
 """
 
-song_table_insert = song_table_insert = """
+SONG_TABLE_INSERT = SONG_TABLE_INSERT = """
 INSERT INTO songs (song_id, title, artist_id, year, duration) VALUES (%s, %s, %s, %s, %s)
+ON CONFLICT (song_id) DO NOTHING
 """
 
-
-artist_table_insert = """
+ARTIST_TABLE_INSERT = """
 INSERT INTO artists (artist_id, artist_name, artist_location, artist_latitude, artist_longitude)
 VALUES (%s, %s, %s, %s, %s)
 ON CONFLICT (artist_id) DO NOTHING
 """
 
-
-time_table_insert = """
+TIME_TABLE_INSERT = """
 INSERT INTO time (start_time, hour, day, week, month, year, weekday) VALUES (%s, %s, %s, %s, %s, %s, %s)
 """
 
 # FIND SONGS
 
-song_select = """
-SELECT s.song_id, a.artist_id, s.duration FROM songs s JOIN artists a ON s.artist_id = a.artist_id WHERE s.title = %s AND a.artist_name = %s AND s.duration = %s
+SONG_SELECT = """
+SELECT s.song_id, a.artist_id FROM songs s JOIN artists a ON s.artist_id = a.artist_id WHERE s.title = %s AND a.artist_name = %s
 """
 
 # QUERY LISTS
 
-create_table_queries = [
-    songplay_table_create,
-    user_table_create,
-    song_table_create,
-    artist_table_create,
-    time_table_create,
+CREATE_TABLE_QUERIES = [
+    SONGPLAY_TABLE_CREATE,
+    USER_TABLE_CREATE,
+    SONG_TABLE_CREATE,
+    ARTIST_TABLE_CREATE,
+    TIME_TABLE_CREATE,
 ]
-drop_table_queries = [
-    songplay_table_drop,
-    user_table_drop,
-    song_table_drop,
-    artist_table_drop,
-    time_table_drop,
+
+DROP_TABLE_QUERIES = [
+    SONGPLAY_TABLE_DROP,
+    USER_TABLE_DROP,
+    SONG_TABLE_DROP,
+    ARTIST_TABLE_DROP,
+    TIME_TABLE_DROP,
 ]
