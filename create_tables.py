@@ -1,3 +1,7 @@
+"""
+This script creates the sparkify database and the tables needed for the ETL process.
+"""
+
 import psycopg2
 from sql_queries import CREATE_TABLE_QUERIES, DROP_TABLE_QUERIES
 

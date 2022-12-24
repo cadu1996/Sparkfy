@@ -1,3 +1,7 @@
+"""
+This file contains all the SQL queries used in the ETL pipeline.
+"""
+
 # DROP TABLES
 
 SONGPLAY_TABLE_DROP = "DROP TABLE IF EXISTS songplays"
