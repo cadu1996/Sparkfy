@@ -154,9 +154,8 @@ def process_log_file(cur, filepath):
 
     # insert songplay records
     for row in next_song_data:
-
         # get songid and artistid from song and artist tables
-        cur.execute(SONG_SELECT, (row["song"], row["artist"]))
+        cur.execute(SONG_SELECT, (row["song"], row["artist"], row["length"]))
         results = cur.fetchone()
 
         if results:

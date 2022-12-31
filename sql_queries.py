@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS artists (
 
 TIME_TABLE_CREATE = """
 CREATE TABLE IF NOT EXISTS time (
-                    start_time timestamp,
+                    start_time timestamp PRIMARY KEY,
                     hour int,
                     day int,
                     week int,
@@ -92,13 +92,15 @@ ON CONFLICT (artist_id) DO NOTHING
 """
 
 TIME_TABLE_INSERT = """
-INSERT INTO time (start_time, hour, day, week, month, year, weekday) VALUES (%s, %s, %s, %s, %s, %s, %s)
+INSERT INTO time (start_time, hour, day, week, month, year, weekday)
+VALUES (%s, %s, %s, %s, %s, %s, %s)
+ON CONFLICT (start_time) DO NOTHING
 """
 
 # FIND SONGS
 
 SONG_SELECT = """
-SELECT s.song_id, a.artist_id FROM songs s JOIN artists a ON s.artist_id = a.artist_id WHERE s.title = %s AND a.name = %s
+SELECT s.song_id, a.artist_id FROM songs s JOIN artists a ON s.artist_id = a.artist_id WHERE s.title = %s AND a.name = %s AND s.duration = %s 
 """
 
 # QUERY LISTS
